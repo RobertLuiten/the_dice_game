@@ -1,10 +1,8 @@
 package Games;
 
-import Players.Human;
-import materials.Calculate;
+import players.Human;
 import materials.Die;
 import materials.Game;
-import materials.Player;
 
 /**
  * The classic game of dice with human players that we all know and love!

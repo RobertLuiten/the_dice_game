@@ -1,4 +1,4 @@
-package Players;
+package players;
 
 import materials.Calculate;
 import materials.Die;
