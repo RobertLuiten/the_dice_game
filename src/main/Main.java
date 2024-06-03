@@ -1,7 +1,8 @@
 package main;
 
-import Games.DICE_2077;
-import Games.StandardGame;
+import games.AutomatedGame;
+import games.DICE_2077;
+import games.StandardGame;
 import materials.Game;
 
 /**
@@ -11,16 +12,25 @@ import materials.Game;
 public class Main {
 
     /**
-     * Change this game to whatever dice game you want to play or test!
+     * Change this to however many players you want to play
      */
-    public static final Game game = new DICE_2077(3);
+    public static int PLAYER_COUNT = 4;
 
     public static void main(String[] args) {
-        int averageWinner = 0;
-        for (int i = 0; i < 100; i++){
-            System.out.println(game.play());
-            averageWinner += game.play();
+        //Game game = new StandardGame(PLAYER_COUNT);
+        findAverageWinner();
+    }
+
+    /**
+     * Cool method to mess around with! It plays an automated
+     * 1,000,000 games and returns the average winner!
+     */
+    public static void findAverageWinner(){
+        AutomatedGame game = new AutomatedGame(PLAYER_COUNT);
+        int[] results = game.playOneMillionTimesAndReturnTheResult();
+        for (int i = 0; i < results.length; i++){
+            System.out.println("Player " + (i+1) + " won " + results[i] + " games!");
         }
-        System.out.println(averageWinner/100);
+        System.out.println(results[PLAYER_COUNT] + " games were a draw!");
     }
 }

@@ -9,26 +9,26 @@ public class Player {
     /**
      * The amount of tokens the player has
      */
-    protected int tokens;
+    protected int TOKENS;
 
     /**
      * The max amount of dice a player can roll
      */
-    protected final int dice;
+    protected final int DICE;
 
     /**
      * The players to the left & right of the player
      */
-    protected Player left, right;
+    protected Player LEFT, RIGHT;
     /**
      * A calculator to determine the results of rolls
      */
-    protected final Calculate calc;
+    protected final Calculate CALC;
 
     /**
      * Die which the player will use throughout the game
      */
-    protected final Die die;
+    protected final Die DIE;
 
     /**
      * Creates a new player
@@ -40,19 +40,19 @@ public class Player {
      * @param dice The max amount of dice a player can roll
      */
     public Player(int tokenCount, Player left, Player right, Calculate calc, Die die, int dice){
-        this.tokens = tokenCount;
-        this.left = left;
-        this.right = right;
-        this.calc = calc;
-        this.die = die;
-        this.dice = dice;
+        this.TOKENS = tokenCount;
+        this.LEFT = left;
+        this.RIGHT = right;
+        this.CALC = calc;
+        this.DIE = die;
+        this.DICE = dice;
     }
 
     /**
      * Gives the player another token
      */
     public void getToken(){
-        tokens++;
+        TOKENS++;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Player {
      */
     protected void giveLeft(){
         loseToken();
-        left.getToken();
+        LEFT.getToken();
     }
 
     /**
@@ -68,38 +68,38 @@ public class Player {
      */
     protected void giveRight(){
         loseToken();
-        right.getToken();
+        RIGHT.getToken();
     }
 
     /**
      * Removes one of the player's tokens from the game
      */
     protected void loseToken(){
-        tokens--;
+        TOKENS--;
     }
 
     /**
      * @return The amount of tokens the player has
      */
     public int tokenCount(){
-        return tokens;
+        return TOKENS;
     }
 
     /**
      * @return True if the player has tokens, False otherwise
      */
     public boolean hasToken(){
-        return (tokens > 0);
+        return (TOKENS > 0);
     }
 
     /**
      * Allows the player to play a turn
      */
     public void turn(){
-        for (int i = 0; i < dice; i++){
+        for (int i = 0; i < DICE; i++){
             //Ensures there's enough tokens for all the dies
-            if (i + 1 <= tokens){
-                int result = calc.calculate(die.roll());
+            if (i + 1 <= TOKENS){
+                int result = CALC.calculate(DIE.roll());
                 if (result == 1){
                     //Gives token to left
                     giveLeft();
@@ -120,7 +120,7 @@ public class Player {
      * @param left New left player
      */
     public void setLeft(Player left){
-        this.left = left;
+        this.LEFT = left;
     }
 
     /**
@@ -128,7 +128,7 @@ public class Player {
      * @param right New left player
      */
     public void setRight(Player right){
-        this.right = right;
+        this.RIGHT = right;
     }
 
 }

@@ -11,27 +11,27 @@ public class Die {
     /**
      * The number of sides that the die has
      */
-    protected final int sides;
+    protected final int SIDES;
 
     /**
      * Random number generator we will use to roll our die
      */
-    protected final Random rand;
+    protected final Random RAND;
 
     /**
      * Creates a die
      * @param sides The number of sides the die has
      */
     public Die (int sides){
-        this.sides = sides;
-        rand = new Random();
+        this.SIDES = sides;
+        RAND = new Random();
     }
 
     /**
      * @return The number of sides the die has
      */
     public int sideCount(){
-        return sides;
+        return SIDES;
     }
 
     /**
@@ -39,8 +39,8 @@ public class Die {
      * @return A pseudo-random value between 1 and the number of sides
      */
     public int roll(){
-        int result = rand.nextInt();
-        return ((result*result) % sides) + 1;
+        int result = RAND.nextInt();
+        return ((result*result) % SIDES) + 1;
     }
 
 }

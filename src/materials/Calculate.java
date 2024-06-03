@@ -11,7 +11,7 @@ public class Calculate {
      * The weights for a token to go left, center, right, and to stay
      * respectively, along with the size
      */
-    protected final int left, center, right, keep, size;
+    protected final int LEFT, CENTER, RIGHT, KEEP, SIZE;
 
     /**
      * Creates a new dice result calculator
@@ -21,11 +21,11 @@ public class Calculate {
      * @param center The weight for a token to go right
      */
     public Calculate(int keep, int left, int right, int center){
-        this.left = left;
-        this.right = right;
-        this.center = center;
-        this.keep = keep;
-        this.size = left + right + center + keep;
+        this.LEFT = left;
+        this.RIGHT = right;
+        this.CENTER = center;
+        this.KEEP = keep;
+        this.SIZE = left + right + center + keep;
     }
 
     /**
@@ -35,14 +35,14 @@ public class Calculate {
      * 2 if it goes right, and 3 if it goes to the center
      */
     public int calculate(int roll){
-        if (roll > size){
+        if (roll > SIZE){
             return -1;
         }
-        if (roll - this.left <= 0){
+        if (roll - this.LEFT <= 0){
             return 1;
-        } else if (roll - this.left - this.right <= 0){
+        } else if (roll - this.LEFT - this.RIGHT <= 0){
             return 2;
-        } else if (roll - this.left - this.right - this.center <= 0){
+        } else if (roll - this.LEFT - this.RIGHT - this.CENTER <= 0){
             return 3;
         }
         return 0;
@@ -52,7 +52,7 @@ public class Calculate {
      * @return The maximum dice size
      */
     public int maxSize(){
-        return this.size;
+        return this.SIZE;
     }
 
     /**
@@ -61,10 +61,10 @@ public class Calculate {
      */
     public int[] weight(){
         int[] weight = new int[5];
-        weight[0] = this.keep;
-        weight[1] = this.left;
-        weight[2] = this.right;
-        weight[3] = this.center;
+        weight[0] = this.KEEP;
+        weight[1] = this.LEFT;
+        weight[2] = this.RIGHT;
+        weight[3] = this.CENTER;
         return weight;
     }
 

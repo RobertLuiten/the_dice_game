@@ -9,22 +9,22 @@ public class Game {
     /**
      * The players in the game
      */
-    protected Player[] player;
+    protected Player[] PLAYER;
 
     /**
      * The calculator that dictates the results of the game
      */
-    protected Calculate calc;
+    protected Calculate CALC;
 
     /**
      * The maximum dies players can roll, and the max amount of tokens they can have
      */
-    protected int maxDies;
+    protected int MAXDIES;
 
     /**
      * The amount of tokens that each player starts out with initially
      */
-    protected int tokenCount;
+    protected int TOKEN_COUNT;
 
     /**
      * Creates a new game of dice
@@ -42,26 +42,26 @@ public class Game {
         if (playerCount < 2){
             throw new IllegalArgumentException();
         }
-        this.tokenCount = tokenCount;
-        this.maxDies = maxDies;
-        this.player = new Player[playerCount];
-        this.calc = new Calculate(keep, left, right, center);
+        this.TOKEN_COUNT = tokenCount;
+        this.MAXDIES = maxDies;
+        this.PLAYER = new Player[playerCount];
+        this.CALC = new Calculate(keep, left, right, center);
         Die die = new Die(left+right+center+keep);
         for (int i = 0; i < playerCount; i++){
-            player[i] = new Player(tokenCount, null, null, calc, die, maxDies);
+            PLAYER[i] = new Player(tokenCount, null, null, CALC, die, maxDies);
         }
-        player[0].setLeft(player[playerCount-1]);
-        player[0].setRight(player[1]);
-        player[playerCount-1].setLeft(player[playerCount-2]);
-        player[playerCount-1].setRight(player[0]);
+        PLAYER[0].setLeft(PLAYER[playerCount-1]);
+        PLAYER[0].setRight(PLAYER[1]);
+        PLAYER[playerCount-1].setLeft(PLAYER[playerCount-2]);
+        PLAYER[playerCount-1].setRight(PLAYER[0]);
         for (int i = 1; i < playerCount - 1; i++){
-            player[i].setLeft(player[i-1]);
-            player[i].setRight(player[i+1]);
+            PLAYER[i].setLeft(PLAYER[i-1]);
+            PLAYER[i].setRight(PLAYER[i+1]);
         }
     }
 
     /**
-     * Plays a game of dice, reseting the game if it's already been won
+     * Plays a game of dice, resetting the game if it's already been won
      * @return The number of the player that won, or 0 if it's a draw
      */
     public int play(){
@@ -69,8 +69,8 @@ public class Game {
             this.resetGame();
         }
         int cur = 0;
-        while (getWin() == -1){
-            player[cur % player.length].turn();
+        while (getWin() == -2){
+            PLAYER[cur % PLAYER.length].turn();
             cur++;
         }
         return getWin();
@@ -78,18 +78,20 @@ public class Game {
 
     /**
      * Returns the winner of the game
-     * @return The winner of the game, 0 if it's a draw, and -1 if there's no winner
+     * @return The winner of the game, -1 if there's a draw, and -2 if no one wins
      */
     protected int getWin(){
         int total = 0;
-        int win = 0;
-        for (int i = 0; i < player.length; i++){
-            if (player[i].hasToken()){
-                win = i + 1;
+        int win = -1;
+        for (int i = 0; i < PLAYER.length; i++){
+            if (PLAYER[i].hasToken()){
+                win = i;
                 total++;
             }
         }
         if (total > 1) {
+            return -2;
+        } else if (total == 0){
             return -1;
         }
         return win;
@@ -99,18 +101,18 @@ public class Game {
      * Resets the game to it's initial state
      */
     public void resetGame(){
-        Die die = new Die(this.calc.maxSize());
-        int playerCount = this.player.length-1;
+        Die die = new Die(this.CALC.maxSize());
+        int playerCount = this.PLAYER.length-1;
         for (int i = 0; i < playerCount; i++){
-            player[i] = new Player(this.tokenCount, null, null, this.calc, die, this.maxDies);
+            PLAYER[i] = new Player(this.TOKEN_COUNT, null, null, this.CALC, die, this.MAXDIES);
         }
-        player[0].setLeft(player[playerCount-1]);
-        player[0].setRight(player[1]);
-        player[playerCount-1].setLeft(player[playerCount-2]);
-        player[playerCount-1].setRight(player[0]);
+        PLAYER[0].setLeft(PLAYER[playerCount-1]);
+        PLAYER[0].setRight(PLAYER[1]);
+        PLAYER[playerCount-1].setLeft(PLAYER[playerCount-2]);
+        PLAYER[playerCount-1].setRight(PLAYER[0]);
         for (int i = 1; i < playerCount - 1; i++){
-            player[i].setLeft(player[i-1]);
-            player[i].setRight(player[i+1]);
+            PLAYER[i].setLeft(PLAYER[i-1]);
+            PLAYER[i].setRight(PLAYER[i+1]);
         }
     }
 

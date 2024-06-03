@@ -1,4 +1,4 @@
-package Games;
+package games;
 
 import players.Human;
 import materials.Die;
@@ -16,18 +16,18 @@ public class StandardGame extends Game {
      */
     public StandardGame(int playerCount){
         super(3,1,1,1,playerCount,3, 3);
-        this.player = new Human[playerCount];
+        this.PLAYER = new Human[playerCount];
         Die die = new Die(6);
         for (int i = 0; i < playerCount; i++){
-            player[i] = new Human(tokenCount, null, null, calc, die, maxDies);
+            PLAYER[i] = new Human(TOKEN_COUNT, null, null, CALC, die, MAXDIES);
         }
-        player[0].setLeft(player[playerCount-1]);
-        player[0].setRight(player[1]);
-        player[playerCount-1].setLeft(player[playerCount-2]);
-        player[playerCount-1].setRight(player[0]);
+        PLAYER[0].setLeft(PLAYER[playerCount-1]);
+        PLAYER[0].setRight(PLAYER[1]);
+        PLAYER[playerCount-1].setLeft(PLAYER[playerCount-2]);
+        PLAYER[playerCount-1].setRight(PLAYER[0]);
         for (int i = 1; i < playerCount - 1; i++){
-            player[i].setLeft(player[i-1]);
-            player[i].setRight(player[i+1]);
+            PLAYER[i].setLeft(PLAYER[i-1]);
+            PLAYER[i].setRight(PLAYER[i+1]);
         }
     }
 
@@ -42,14 +42,18 @@ public class StandardGame extends Game {
             this.resetGame();
         }
         int cur = 0;
-        while (getWin() == -1){
+        while (getWin() == -2){
             scoreboard();
-            player[cur % player.length].turn();
+            PLAYER[cur % PLAYER.length].turn();
             cur++;
         }
         int result = getWin();
-        Human winner = (Human) player[result - 1];
-        System.out.println("You win " + winner.getName() + "! Final scoreboard: ");
+        if (result == -1){
+            System.out.println("AND IT'S A DRAW!");
+        } else {
+            Human winner = (Human) PLAYER[result];
+            System.out.println("You win " + winner.getName() + "! Final scoreboard: ");
+        }
         scoreboard();
         return result;
     }
@@ -60,18 +64,18 @@ public class StandardGame extends Game {
      */
     @Override
     public void resetGame(){
-        int playerCount = this.player.length-1;
+        int playerCount = this.PLAYER.length-1;
         Die die = new Die(6);
         for (int i = 0; i < playerCount; i++){
-            player[i] = new Human(tokenCount, null, null, calc, die, maxDies);
+            PLAYER[i] = new Human(TOKEN_COUNT, null, null, CALC, die, MAXDIES);
         }
-        player[0].setLeft(player[playerCount-1]);
-        player[0].setRight(player[1]);
-        player[playerCount-1].setLeft(player[playerCount-2]);
-        player[playerCount-1].setRight(player[0]);
+        PLAYER[0].setLeft(PLAYER[playerCount-1]);
+        PLAYER[0].setRight(PLAYER[1]);
+        PLAYER[playerCount-1].setLeft(PLAYER[playerCount-2]);
+        PLAYER[playerCount-1].setRight(PLAYER[0]);
         for (int i = 1; i < playerCount - 1; i++){
-            player[i].setLeft(player[i-1]);
-            player[i].setRight(player[i+1]);
+            PLAYER[i].setLeft(PLAYER[i-1]);
+            PLAYER[i].setRight(PLAYER[i+1]);
         }
     }
 
@@ -79,9 +83,9 @@ public class StandardGame extends Game {
      * Prints out a scoreboard of the current game
      */
     public void scoreboard(){
-        for (int i = 0; i < player.length; i++){
+        for (int i = 0; i < PLAYER.length; i++){
             //This may be dangerous...
-            Human cur = (Human) player[i];
+            Human cur = (Human) PLAYER[i];
             System.out.println(cur.getName() + " has a score of " + cur.tokenCount() + " tokens!");
         }
         System.out.println();

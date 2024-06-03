@@ -15,12 +15,12 @@ public class Human extends Player {
     /**
      * Takes user input
      */
-    private final Scanner sc;
+    private final Scanner SCAN;
 
     /**
      * The name of the player
      */
-    private final String name;
+    private final String NAME;
 
     /**
      * Creates a new human player
@@ -33,10 +33,10 @@ public class Human extends Player {
      */
     public Human (int tokenCount, Player left, Player right, Calculate calc, Die die, int dice){
         super(tokenCount, left, right, calc, die, dice);
-        this.sc = new Scanner(System.in);
+        this.SCAN = new Scanner(System.in);
         System.out.println("Hello there player, what's your name?");
-        this.name = sc.next();
-        System.out.println("Okay " + name + ", good luck!");
+        this.NAME = SCAN.next();
+        System.out.println("Okay " + NAME + ", good luck!");
         System.out.println();
     }
 
@@ -45,25 +45,25 @@ public class Human extends Player {
      */
     @Override
     public void turn(){
-        int initialCount = tokens;
-        System.out.println("You're up, " + name + "! You have " + tokenCount() + " tokens!");
-        for (int i = 0; i < super.dice; i++){
+        int initialCount = TOKENS;
+        System.out.println("You're up, " + NAME + "! You have " + tokenCount() + " tokens!");
+        for (int i = 0; i < super.DICE; i++){
             //Ensures there's enough tokens for all the dies
             if (i + 1 <= initialCount){
-                System.out.println("Roll " + name + "! You have " + tokens + " left...");
-                sc.next();
-                int result = calc.calculate(die.roll());
+                System.out.println("Roll " + NAME + "! You have " + TOKENS + " left...");
+                SCAN.next();
+                int result = CALC.calculate(DIE.roll());
                 if (result == 1){
-                    System.out.println("Sorry "+ name + ", the person to the left of you gets this one!");
+                    System.out.println("Sorry "+ NAME + ", the person to the left of you gets this one!");
                     giveLeft();
                 } else if (result == 2){
                     giveRight();
-                    System.out.println("Sorry "+ name + ", the person to the right of you gets this one!");
+                    System.out.println("Sorry "+ NAME + ", the person to the right of you gets this one!");
                 } else if (result == 3){
                     loseToken();
-                    System.out.println("Sorry "+ name + ", this token's going to the center!");
+                    System.out.println("Sorry "+ NAME + ", this token's going to the center!");
                 } else {
-                    System.out.println("Congrats "+ name + "! You're safe... this time...");
+                    System.out.println("Congrats "+ NAME + "! You're safe... this time...");
                 }
             }
         }
@@ -75,7 +75,7 @@ public class Human extends Player {
      * @return The name of the player
      */
     public String getName(){
-        return name;
+        return NAME;
     }
 
 }
