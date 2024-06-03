@@ -1,7 +1,6 @@
 package main;
 
 import games.AutomatedGame;
-import games.DICE_2077;
 import games.StandardGame;
 import materials.Game;
 
@@ -14,11 +13,11 @@ public class Main {
     /**
      * Change this to however many players you want to play
      */
-    public static int PLAYER_COUNT = 4;
+    public static int PLAYER_COUNT = 3;
 
     public static void main(String[] args) {
-        //Game game = new StandardGame(PLAYER_COUNT);
-        findAverageWinner();
+        Game game = new StandardGame(PLAYER_COUNT);
+        game.play();
     }
 
     /**
