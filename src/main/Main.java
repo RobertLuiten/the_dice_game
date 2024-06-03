@@ -1,5 +1,6 @@
 package main;
 
+import Games.DICE_2077;
 import Games.StandardGame;
 import materials.Game;
 
@@ -12,7 +13,7 @@ public class Main {
     /**
      * Change this game to whatever dice game you want to play or test!
      */
-    public static final Game game = new StandardGame(3);
+    public static final Game game = new DICE_2077(3);
 
     public static void main(String[] args) {
         int averageWinner = 0;
