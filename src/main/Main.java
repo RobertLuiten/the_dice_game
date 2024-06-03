@@ -27,7 +27,7 @@ public class Main {
     public static void findAverageWinner(){
         AutomatedGame game = new AutomatedGame(PLAYER_COUNT);
         int[] results = game.playOneMillionTimesAndReturnTheResult();
-        for (int i = 0; i < results.length; i++){
+        for (int i = 0; i < PLAYER_COUNT; i++){
             System.out.println("Player " + (i+1) + " won " + results[i] + " games!");
         }
         System.out.println(results[PLAYER_COUNT] + " games were a draw!");
